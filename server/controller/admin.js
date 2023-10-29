@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("../model/User");
+const User = require('../model/USer')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
