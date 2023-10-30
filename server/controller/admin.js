@@ -2,8 +2,10 @@ const express = require("express");
 const User = require('../model/USer')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 const jwtSecret = process.env.JWT_SECRET;
-const adminLayout = "../views/layouts/admin";
+const adminLayout = "../views/layouts/main";
+
 
 
 const adminPage = async (req, res) => {
@@ -17,51 +19,33 @@ const adminPage = async (req, res) => {
     }
   };
 
-  // const registerPage = async (req, res) => {
-  //   try {
-  //     const locals = {
-  //       title: "Admin",
-  //     };
-  //     res.render("admin/register", { locals, layout: adminLayout });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const registerPage = ('/register', (req, res)=>{
-  //   try {
-  //     const locals = {
-  //       title: "register",
-  //     };
-  //     res.render("admin/register", {layout:adminLayout, locals})
-  //   } catch (error) {
-      
-  //   }
-  // })
 
   const register = async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { email, firstname, lastname, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
+  
       try {
-        const user = await User.create({ username, password: hashedPassword });
-        res.status(201).json({ message: `user created`, user });
+        const user = await User.create({ email, firstname, lastname, password: hashedPassword });
+        res.status(201).json({ message: `User created successfully.`, user });
       } catch (error) {
         if (error.code === 11000) {
-          res.status(409).json({ message: `user already in use` });
+          res.status(409).json({ message: `User already in use.`, error: error });
+        } else {
+          res.status(500).json({ message: "Internal server error.", error: error });
         }
-        res.status(500).json({ message: "internal server error" });
       }
     } catch (error) {
       console.log(error);
+      res.status(500).json({ message: "Internal server error.", error: error });
     }
   };
-
+  
 
   const login = async (req, res) => {
     try {
-      const { username, password } = req.body;
-      const user = await User.findOne({ username });
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(401).json({ message: `invalid credential` });
       }
