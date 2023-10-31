@@ -78,26 +78,26 @@ const createPost = async (req, res) => {
         
     }
 }
-function insertPostData () {
-    post.insertMany([{
-        title:"building a blog",
-        body:"this is the body text"
-    },
-    {
-        title:"making a dress",
-        body:"dress making time"
-    },
-    {
-        title:"learning soccer sport",
-        body:"learning use to be fun"
-    },
-    {
-      title:"improving",
-      body:"improving is key to human nature"
-  }])
-}
+// function insertPostData () {
+//     post.insertMany([{
+//         title:"building a blog",
+//         body:"this is the body text"
+//     },
+//     {
+//         title:"making a dress",
+//         body:"dress making time"
+//     },
+//     {
+//         title:"learning soccer sport",
+//         body:"learning use to be fun"
+//     },
+//     {
+//       title:"improving",
+//       body:"improving is key to human nature"
+//   }])
+// }
 
-insertPostData()
+
 
 module.exports = {dasboard, loadPost, getOnepost, createPost, postUpdate, deletePost}
 

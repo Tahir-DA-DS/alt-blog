@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const blogController = require('../controller/blog')
+const blogController =require('../controller/blog')
 
 
 router.get('/dashboard', blogController.dasboard)
@@ -13,7 +13,7 @@ router.put('/edit-post/:id', blogController.postUpdate)
 
 router.get('/edit-post/:id', blogController.getOnepost)
 
-router.delete('/delete.post/:id', blogController.deletePost)
+router.delete('/delete-post/:id', blogController.deletePost)
 
 
 
