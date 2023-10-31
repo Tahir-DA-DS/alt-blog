@@ -22,8 +22,8 @@ const loadPost = async (req, res) => {
       };
       const data = await post.find();
       res.render("admin/add-post", { locals, data, layout: adminLayout });
-    } catch (error) {}
-    console.log(error);
+    } catch (error) { console.log(error);}
+   
   }
 
 const createPost = async (req, res) => {
@@ -36,9 +36,9 @@ const createPost = async (req, res) => {
         console.log(error);
        }
       
-    } catch (error) {}
+    } catch (error) {console.log(error);}
 
-    console.log(error);
+    
 
   }
 
@@ -78,7 +78,26 @@ const createPost = async (req, res) => {
         
     }
 }
+function insertPostData () {
+    post.insertMany([{
+        title:"building a blog",
+        body:"this is the body text"
+    },
+    {
+        title:"making a dress",
+        body:"dress making time"
+    },
+    {
+        title:"learning soccer sport",
+        body:"learning use to be fun"
+    },
+    {
+      title:"improving",
+      body:"improving is key to human nature"
+  }])
+}
 
+insertPostData()
 
 module.exports = {dasboard, loadPost, getOnepost, createPost, postUpdate, deletePost}
 
