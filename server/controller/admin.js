@@ -53,7 +53,7 @@ const adminPage = async (req, res) => {
       if (!isPasswordvalid) {
         return res.status(401).json({ message: `invalid credential` });
       }
-      const token = jwt.sign({ userId: user._id }, jwtSecret);
+      const token = jwt.sign({user:user.toObject() }, jwtSecret);
       res.cookie("token", token, { httpOnly: true });
       res.redirect("/dashboard");
     } catch (error) {

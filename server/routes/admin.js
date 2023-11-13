@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 const adminControlller = require('../controller/admin')
 const adminLayout = "../views/layouts/main";
+const authuser = require('../middleware/Auth')
 
 
 router.get("/admin", adminControlller.adminPage)
 
 router.post("/register", adminControlller.register)
 
-router.post("/admin", adminControlller.login)
+router.post("/admin",  adminControlller.login)
 
 router.get('/logout', adminControlller.logout)
 

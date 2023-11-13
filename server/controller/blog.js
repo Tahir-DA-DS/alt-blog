@@ -7,8 +7,8 @@ const dasboard =  async (req, res) => {
       const locals = {
         title: "dashboard",
       };
-      const data = await post.find();
-      res.render("admin/dashboard", { locals, data, layout: adminLayout });
+      const data = await post.find({user_id:req.userId});
+      res.render("admin/dashboard", { locals, data, layout: adminLayout, user:req.user});
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +29,7 @@ const loadPost = async (req, res) => {
 const createPost = async (req, res) => {
     try {
        try {
-        const newPost = new post({title:req.body.title, body:req.body.body})
+        const newPost = new post({title:req.body.title, body:req.body.body, user_id:req.userId, author:req.body.author})
         await post.create(newPost)
         res.redirect('/dashboard')
     } catch (error) {
@@ -78,6 +78,13 @@ const createPost = async (req, res) => {
         
     }
 }
+
+const tagpost = async (req, res) => {
+  const tag = req.params.tag;
+  const posts = await BlogPost.find({ tags: tag });
+
+  res.render('tagPosts', { tag, posts });
+}
 // function insertPostData () {
 //     post.insertMany([{
 //         title:"building a blog",
@@ -99,5 +106,5 @@ const createPost = async (req, res) => {
 
 
 
-module.exports = {dasboard, loadPost, getOnepost, createPost, postUpdate, deletePost}
+module.exports = {dasboard, loadPost, getOnepost, createPost, postUpdate, deletePost, tagpost}
 

@@ -5,6 +5,7 @@ const expressLayout = require('express-ejs-layouts')
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')
+const authuser = require('./server/middleware/Auth')
 
 const adminRoute = require('./server/routes/admin')
 const blogRoute = require('./server/routes/blog')
